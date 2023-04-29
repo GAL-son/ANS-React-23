@@ -2,7 +2,7 @@ import React from 'react';
 
 const Results = (props) => {
    return (
-       <p>Results</p>
+       <p>{props.points} points</p>
 
    )
 };

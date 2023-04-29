@@ -4,7 +4,8 @@ const Question = (props) => {
 
    return (
        <div>
-           <p>Question:</p>
+           <p>Question: {props.currentIndex} / {props.allQuestions}</p>
+           <p>{props.currentQuestion}</p>
        </div>
    )
 };
