@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+
 class LoginForm extends Component {
 
     state = {
@@ -10,8 +11,6 @@ class LoginForm extends Component {
         },
         errors: {}
     };
-
-
 
     validate = () => {
         const errors = {};
@@ -26,6 +25,8 @@ class LoginForm extends Component {
 
         return Object.keys(errors).length === 0 ? null : errors;
     };
+
+    
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -43,6 +44,7 @@ class LoginForm extends Component {
             }
         }).then((response) => {
             localStorage.setItem('token', response.data.token);
+            window.open("http://localhost:3000/home", "_self");
         }).catch((error) => {
             const errors = {};
             errors.password = 'Given username does\'t exists or password is wrong!';
