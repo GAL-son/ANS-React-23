@@ -1,16 +1,14 @@
 import React from "react";
 
 const Home = () => {
-   return <div className="container">
-       <div className="alert alert-dark" role="alert">
-           <h4 className="alert-heading">Home</h4>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, aut autem delectus ea
-               error esse est eveniet expedita fugiat illo libero magni maxime mollitia optio quasi ratione rem
-               repellendus sunt.
-           </p>
-
-       </div>
-   </div>;
+    return <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+            <h1 className="display-4">Home</h1>
+            <p className="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, aut autem delectus ea
+                error esse est eveniet expedita fugiat illo libero magni maxime mollitia optio quasi ratione rem
+                repellendus sunt.</p>
+        </div>
+    </div>;
 };
 
 export default Home;

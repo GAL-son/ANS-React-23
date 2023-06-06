@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginForm = () => {
-    let navigate = useNavigate()
-
+const SignUpForm = () => {
     const [account, setAccount] = useState({
         username: '',
+        email: '',
         password: ''
     });
     const [errors, setErrors] = useState({});
 
+    const navigate = useNavigate()
+
+    const handleChangeRoute = () => {
+        navigate('/home');
+        window.location.reload();
+    };
 
     const validate = () => {
         const validationErrors = {};
@@ -18,16 +23,14 @@ const LoginForm = () => {
         if (account.username.trim() === '') {
             validationErrors.username = 'Username is required!';
         }
+        if (account.email.trim() === '') {
+            validationErrors.email = 'Email is required!';
+        }
         if (account.password.trim() === '') {
             validationErrors.password = 'Password is required!';
         }
 
         return Object.keys(validationErrors).length === 0 ? null : validationErrors;
-    };
-
-    const handleChangeRoute = () => {
-        navigate('/home');
-        window.location.reload();
     };
 
     const handleSubmit = (event) => {
@@ -38,12 +41,12 @@ const LoginForm = () => {
         if (validationErrors) return;
 
         axios
-            .post('http://localhost:3001/api/user/auth', {
-                login: account.username,
+            .post('http://localhost:3001/api/user/create', {
+                name: account.username,
+                email: account.email,
                 password: account.password
             })
             .then((response) => {
-                localStorage.setItem('token', response.data.token);
                 handleChangeRoute();
             })
             .catch((error) => {
@@ -55,6 +58,9 @@ const LoginForm = () => {
             });
     };
 
+
+
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setAccount((prevAccount) => ({
@@ -65,10 +71,10 @@ const LoginForm = () => {
 
     return (
         <div>
-            <h1>Login</h1>
+            <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="username">Email address</label>
+                    <label htmlFor="username">Name</label>
                     <input
                         value={account.username}
                         name="username"
@@ -81,6 +87,22 @@ const LoginForm = () => {
                     />
                     {errors.username && (
                         <div className="alert alert-danger">{errors.username}</div>
+                    )}
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email address</label>
+                    <input
+                        value={account.email}
+                        name="email"
+                        onChange={handleChange}
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        aria-describedby="emailHelp"
+                        placeholder="Email"
+                    />
+                    {errors.email && (
+                        <div className="alert alert-danger">{errors.email}</div>
                     )}
                 </div>
                 <div className="form-group">
@@ -99,11 +121,10 @@ const LoginForm = () => {
                     )}
                 </div>
                 <button type="submit" className="btn btn-primary">
-                    Login
+                    SignUp
                 </button>
             </form>
         </div>
     );
 };
-
-export default LoginForm;
+export default SignUpForm;
